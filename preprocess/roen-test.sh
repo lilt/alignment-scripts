@@ -2,8 +2,7 @@
 
 set -ex
 
-mkdir -p test/roen && cd $_
-
+prefix="roen"
 DIR_NAME="Romanian-English"
 
 if [ ! -d $DIR_NAME ]; then
@@ -21,13 +20,10 @@ for suffix in "e" "r"; do
   done
   cat $files > "test.${suffix}"
 done
-
-cat test.e | sed -e "s/^<s[^>]*> //g" -e "s|</s>$||g" > test.src
-cat test.r | sed -e "s/^<s[^>]*> //g" -e "s|</s>$||g" > test.tgt
+cat test.r | sed -e "s/^<s[^>]*> //g" -e "s|</s>$||g" > ${prefix}.src
+cat test.e | sed -e "s/^<s[^>]*> //g" -e "s|</s>$||g" > ${prefix}.tgt
 rm test.e test.r
 
-for suffix in "src" "tgt"; do
-  cat test.${suffix} | tr '[:upper:]' '[:lower:]' > test.lc.${suffix}
-done
+# Alignments
+../scripts/toTalp.py < ${DIR_NAME}/answers/test.wa.nonullalign > ${prefix}.talp
 
-../../scripts/toTalp.py < ${DIR_NAME}/answers/test.wa.nonullalign > test.talp
