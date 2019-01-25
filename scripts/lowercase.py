@@ -3,5 +3,5 @@
 import fileinput
 
 for line in fileinput.input():
-    print(line.lower())
+    print(line.lower(), end="")
 
