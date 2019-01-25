@@ -8,8 +8,8 @@ if [ -z ${MOSES_DIR} ]; then
   exit
 fi
 
-if [ ! -f ${MGIZA_DIR}/scripts/tokenizer/tokenizer.perl ]; then
-  echo "Install mgiza, file ${MOSES_DIR}/scripts/tokenizer/tokenizer.perl not found"
+if [ ! -f ${MOSES_DIR}/scripts/tokenizer/tokenizer.perl ]; then
+  echo "Install Moses, file ${MOSES_DIR}/scripts/tokenizer/tokenizer.perl not found"
   exit
 fi
 
