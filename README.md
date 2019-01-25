@@ -8,6 +8,7 @@ Scripts to preprocess training and test data and to run fast_align and giza
 * Combined these goals should save time for running more experiments for the paper and we can possibly open source most of it to let other researchers compare more directly to our alignment approach, which hopefully leads to more improvements
 
 # Optional Dependencies
+- [MosesDecoder](https://github.com/moses-smt/mosesdecoder)
 - [Fastalign](https://github.com/clab/fast_align)
 - [Mgiza](https://github.com/moses-smt/mgiza/)
 - [Sentencepiece](https://github.com/google/sentencepiece)
