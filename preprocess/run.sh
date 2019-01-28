@@ -4,11 +4,11 @@ set -ex
 
 PREPROCESS_DIR=${0%/run.sh}
 
-${PREPROCESS_DIR}/train.sh
 ${PREPROCESS_DIR}/test.sh
+${PREPROCESS_DIR}/train.sh
 
 
-for ln_pair in "roen" "enfr"; do
+for ln_pair in "roen" "enfr" "deen"; do
   for suffix in "src" "tgt"; do
     cat train/${ln_pair}.lc.${suffix} test/${ln_pair}.lc.${suffix} > train/${ln_pair}.lc.plustest.${suffix}
       spm_train --input_sentence_size      100000000 \
