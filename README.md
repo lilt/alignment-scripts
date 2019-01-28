@@ -12,3 +12,25 @@ Scripts to preprocess training and test data and to run fast_align and giza
 - [Fastalign](https://github.com/clab/fast_align)
 - [Mgiza](https://github.com/moses-smt/mgiza/)
 - [Sentencepiece](https://github.com/google/sentencepiece)
+
+# Results
+All results are in the format: AER (Precision/Recall)
+
+## German to English ##
+| Method | DeEn | EnDe | Grow-Diag | GrowDiagFinal |
+| --- | ---- | --- | ---- | --------- |
+| Fastalign | x.xx | x.xx | x.xx | x.xx |
+| Mgiza | x.xx | x.xx | x.xx | x.xx |
+
+
+## Romanian to English ##
+| Method | RoEn | EnRo | Grow-Diag | GrowDiagFinal |
+| --- | ---- | --- | ---- | --------- |
+| Fastalign | x.xx | x.xx | x.xx | x.xx |
+| Mgiza | x.xx | x.xx | x.xx | x.xx |
+
+## English to French ##
+| Method | EnFr | FrEn | Grow-Diag | GrowDiagFinal |
+| --- | ---- | --- | ---- | --------- |
+| Fastalign | x.xx | x.xx | x.xx | x.xx |
+| Mgiza | x.xx | x.xx | x.xx | x.xx |
