@@ -2,6 +2,8 @@
 
 set -ex
 
+SCRIPT_DIR=${0%/combine.sh}
+
 # check parameter count and write usage instruction
 if (( $# != 3 )); then
   echo "Usage: $0 alignment reverse_alignment reference_path"
@@ -24,14 +26,14 @@ tail -n $reference_lines $alignment_reverse_path > test.${alignment_reverse_name
 
 # Do not reverse the alignment there
 for method in "grow-diagonal-final" "grow-diagonal" "intersection" "union"; do
-  ${NEURAL_HOME}/scripts/combine_bidirectional_alignments.py test.${alignment_name}  test.${alignment_reverse_name} --method $method $4 > test.${alignment_prefix}.${method}.talp
+  ${SCRIPT_DIR}/combine_bidirectional_alignments.py test.${alignment_name}  test.${alignment_reverse_name} --method $method $4 > test.${alignment_prefix}.${method}.talp
 done
 
-for file_path in test.*.talp; do
+for file_path in test.${alignment_prefix}*.talp; do
   reverseRef=""
   if [[ ${file_path} == *"reverse"* ]]; then
     reverseRef="--reverseRef"
   fi
-  python3 ${NEURAL_HOME}/src/python/utils/aer.py ${reference_path} ${file_path} --oneRef $reverseRef >> results.txt
+  python3 ${NEURAL_HOME}/src/python/utils/aer.py ${reference_path} ${file_path} --oneRef $reverseRef
 done
 
