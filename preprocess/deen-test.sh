@@ -11,7 +11,8 @@ fi
 
 tar -xvzf DeEnGoldAlignment.tar.gz
 
-mv ${DIR_NAME}/alignmentDeEn.talp ${prefix}.talp
-iconv -f latin1 -t utf-8 < ${DIR_NAME}/de > ${prefix}.src
-iconv -f latin1 -t utf-8 < ${DIR_NAME}/en > ${prefix}.tgt
+# remove empty lines
+sed '/^[[:space:]]*$/d' < ${DIR_NAME}/alignmentDeEn.talp > ${prefix}.talp
+cat ${DIR_NAME}/de | sed '/^[[:space:]]*$/d' | iconv -f latin1 -t utf-8 > ${prefix}.src
+cat ${DIR_NAME}/en | sed '/^[[:space:]]*$/d' | iconv -f latin1 -t utf-8 > ${prefix}.tgt
 

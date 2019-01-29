@@ -34,6 +34,6 @@ for file_path in test.${alignment_prefix}*.talp; do
   if [[ ${file_path} == *"reverse"* ]]; then
     reverseRef="--reverseRef"
   fi
-  python3 ${NEURAL_HOME}/src/python/utils/aer.py ${reference_path} ${file_path} --oneRef $reverseRef
+  ${SCRIPT_DIR}/src/python/utils/aer.py ${reference_path} ${file_path} --oneRef $reverseRef
 done
 
