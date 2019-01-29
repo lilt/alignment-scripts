@@ -1,6 +1,8 @@
 # test and train dirs with auto generated data
 train/
 test/
+fastalign/
+giza/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
