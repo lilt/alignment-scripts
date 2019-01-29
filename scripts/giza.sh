@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -ex
 
 SCRIPT_DIR=${0%/giza.sh}
 
@@ -16,24 +16,28 @@ if [ ! -f ${MGIZA_DIR}/mgizapp/bin/mgiza ]; then
 fi
 
 # check parameter count and write usage instruction
-if (( $# != 2 )); then
-  echo "Usage: $0 source_file_path target_file_path"
+if (( $# != 3 )); then
+  echo "Usage: $0 source_file_path target_file_path ln_pair"
   exit
 fi
 
-source_path=$1
-target_path=$2
+source_path=`realpath $1`
+target_path=`realpath $2`
 source_name=${1##*/}
 target_name=${2##*/}
+ln_pair=${3}
+
+mkdir -p ${ln_pair}
+cd ${ln_pair}
 
 # creates vcb and snt files
-${MGIZA_DIR}/mgizapp/bin/plain2snt $1 $2
+${MGIZA_DIR}/mgizapp/bin/plain2snt ${source_path} ${target_path}
 
-${MGIZA_DIR}/mgizapp/bin/mkcls -n10 -p${source_path} -V${source_name}.class &
-${MGIZA_DIR}/mgizapp/bin/mkcls -n10 -p${target_path} -V${target_name}.class &
+${MGIZA_DIR}/mgizapp/bin/mkcls -n10 -p${source_path} -V${source_name}.class
+${MGIZA_DIR}/mgizapp/bin/mkcls -n10 -p${target_path} -V${target_name}.class
 
-${MGIZA_DIR}/mgizapp/bin/snt2cooc ${source_name}_${target_name}.cooc ${source_path}.vcb ${target_path}.vcb ${source_path}_${target_name}.snt &
-${MGIZA_DIR}/mgizapp/bin/snt2cooc ${target_name}_${source_name}.cooc ${target_path}.vcb ${target_path}.vcb ${target_path}_${source_name}.snt &
+${MGIZA_DIR}/mgizapp/bin/snt2cooc ${source_name}_${target_name}.cooc ${source_path}.vcb ${target_path}.vcb ${source_path}_${target_name}.snt
+${MGIZA_DIR}/mgizapp/bin/snt2cooc ${target_name}_${source_name}.cooc ${target_path}.vcb ${target_path}.vcb ${target_path}_${source_name}.snt
 
 
 mkdir -p Forward && cd $_
@@ -62,7 +66,9 @@ for name in "Backward" "Forward"; do
   cd ..
 done
 
+cd ..
+
 # convert alignments
-${SCRIPT_DIR}/a3ToTalp.py < Forward/allA3.txt > alignment.talp
-${SCRIPT_DIR}/a3ToTalp.py < Backward/allA3.txt > alignment.reverse.talp
+${SCRIPT_DIR}/a3ToTalp.py < ${ln_pair}/Forward/allA3.txt > ${ln_pair}.talp
+${SCRIPT_DIR}/a3ToTalp.py < ${ln_pair}/Backward/allA3.txt > ${ln_pair}.reverse.talp
 
