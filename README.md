@@ -43,3 +43,7 @@ All results are in percent in the format: AER (Precision/Recall)
 | --- | ---- | --- | ---- | --------- |
 | Fastalign | 16.4 (80.0/90.1) | 15.9 (81.3/88.7) | 10.5 (90.8/87.8) | 12.1 (87.7/88.3) |
 | Mgiza | x.xx | x.xx | x.xx | x.xx |
+
+# Known Issues
+Tokenization of the Canadian Hansards seems to be wrong when accents are present in the English text:
+E.g.: `Ms. H é l è ne Alarie`, `Mr. Andr é Harvey :`, `Mr. R é al M é nard`
