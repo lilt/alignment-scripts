@@ -14,7 +14,7 @@ Scripts to preprocess training and test data and to run fast_align and giza
 - [Sentencepiece](https://github.com/google/sentencepiece)
 
 # Results
-All results are in the format: AER (Precision/Recall)
+All results are in percent in the format: AER (Precision/Recall)
 
 ## German to English ##
 | Method | DeEn | EnDe | Grow-Diag | GrowDiagFinal |
@@ -26,11 +26,11 @@ All results are in the format: AER (Precision/Recall)
 ## Romanian to English ##
 | Method | RoEn | EnRo | Grow-Diag | GrowDiagFinal |
 | --- | ---- | --- | ---- | --------- |
-| Fastalign | x.xx | x.xx | x.xx | x.xx |
+| Fastalign | 33.8 (71.8/61.3) | 35.5 (70.6/59.4) | 32.1 (85.1/56.5) | 32.2 (81.4/58.1) |
 | Mgiza | x.xx | x.xx | x.xx | x.xx |
 
 ## English to French ##
 | Method | EnFr | FrEn | Grow-Diag | GrowDiagFinal |
 | --- | ---- | --- | ---- | --------- |
-| Fastalign | x.xx | x.xx | x.xx | x.xx |
+| Fastalign | 16.4 (80.0/90.1) | 15.9 (81.3/88.7) | 10.5 (90.8/87.8) | 12.1 (87.7/88.3) |
 | Mgiza | x.xx | x.xx | x.xx | x.xx |
