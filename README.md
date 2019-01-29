@@ -35,8 +35,8 @@ All results are in percent in the format: AER (Precision/Recall)
 ## Romanian to English ##
 | Method | RoEn | EnRo | Grow-Diag | GrowDiagFinal |
 | --- | ---- | --- | ---- | --------- |
-| Fastalign | 33.8 (71.8/61.3) | 35.5 (70.6/59.4) | 32.1 (85.1/56.5) | 32.2 (81.4/58.1) |
-| Mgiza | x.xx | x.xx | x.xx | x.xx |
+| Fastalign | 33.8% (71.8%/61.3%) | 35.5% (70.6%/59.4%) | 32.1% (85.1%/56.5%) | 32.2% (81.4%/58.1%) |
+| Mgiza | 28.7% (82.7%/62.6%) | 32.2% (79.5%/59.1%) | 27.9% (94.0%/58.5%) | 26.4% (90.9%/61.8%) |
 
 ## English to French ##
 | Method | EnFr | FrEn | Grow-Diag | GrowDiagFinal |
