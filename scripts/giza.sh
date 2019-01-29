@@ -33,11 +33,13 @@ cd ${ln_pair}
 # creates vcb and snt files
 ${MGIZA_DIR}/mgizapp/bin/plain2snt ${source_path} ${target_path}
 
-${MGIZA_DIR}/mgizapp/bin/mkcls -n10 -p${source_path} -V${source_name}.class
-${MGIZA_DIR}/mgizapp/bin/mkcls -n10 -p${target_path} -V${target_name}.class
+${MGIZA_DIR}/mgizapp/bin/mkcls -n10 -p${source_path} -V${source_name}.class &
+${MGIZA_DIR}/mgizapp/bin/mkcls -n10 -p${target_path} -V${target_name}.class &
+wait
 
-${MGIZA_DIR}/mgizapp/bin/snt2cooc ${source_name}_${target_name}.cooc ${source_path}.vcb ${target_path}.vcb ${source_path}_${target_name}.snt
-${MGIZA_DIR}/mgizapp/bin/snt2cooc ${target_name}_${source_name}.cooc ${target_path}.vcb ${target_path}.vcb ${target_path}_${source_name}.snt
+${MGIZA_DIR}/mgizapp/bin/snt2cooc ${source_name}_${target_name}.cooc ${source_path}.vcb ${target_path}.vcb ${source_path}_${target_name}.snt &
+${MGIZA_DIR}/mgizapp/bin/snt2cooc ${target_name}_${source_name}.cooc ${target_path}.vcb ${target_path}.vcb ${target_path}_${source_name}.snt &
+wait
 
 
 mkdir -p Forward && cd $_
