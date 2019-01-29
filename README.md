@@ -28,7 +28,7 @@ All results are in percent in the format: AER (Precision/Recall)
 ## German to English ##
 | Method | DeEn | EnDe | Grow-Diag | GrowDiagFinal |
 | --- | ---- | --- | ---- | --------- |
-| Fastalign | x.xx | x.xx | x.xx | x.xx |
+| Fastalign | 28.4% (71.3%/71.8%) | 32.0% (69.7%/66.4%) | 27.0% (84.6%/64.1%) | 27.7% (80.7%/65.5%) |
 | Mgiza | x.xx | x.xx | x.xx | x.xx |
 
 
