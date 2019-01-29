@@ -1,5 +1,5 @@
 # alignment-scripts
-Scripts to preprocess training and test data and to run fast_align and giza
+Scripts to preprocess training and test data for alignment experiments and to run fast_align and giza
 
 # Goals
 * Make preprocessing of training corpora automatic, easy to use and reproducible
@@ -7,11 +7,20 @@ Scripts to preprocess training and test data and to run fast_align and giza
 * Define consistent naming schemes for the files of each language pair
 * Combined these goals should save time for running more experiments for the paper and we can possibly open source most of it to let other researchers compare more directly to our alignment approach, which hopefully leads to more improvements
 
-# Optional Dependencies
-- [MosesDecoder](https://github.com/moses-smt/mosesdecoder)
-- [Fastalign](https://github.com/clab/fast_align)
-- [Mgiza](https://github.com/moses-smt/mgiza/)
-- [Sentencepiece](https://github.com/google/sentencepiece)
+# Dependencies
+* Python3
+* [MosesDecoder](https://github.com/moses-smt/mosesdecoder): Used during preprocessing
+* [Sentencepiece](https://github.com/google/sentencepiece): Used during preprocessing
+* [Fastalign](https://github.com/clab/fast_align): Only used for Fastalign
+* [Mgiza](https://github.com/moses-smt/mgiza/): Only used for Mgiza
+
+# Usage Instructions
+* Install all necessary dependencies
+* Export install locations for dependencies: `export {MOSES_DIR,FASTALIGN_DIR,MGIZA_DIR}=/foo/bar`
+* Create folder for your test data: `mkdir -p test`
+* Download [Test Data for German-English](https://www-i6.informatik.rwth-aachen.de/goldAlignment/) and move it into the folder `test`
+* Run preprocessing: `./preprocess/run.sh`
+* Run Fastalign: `./scripts/run_fast_align.sh`
 
 # Results
 All results are in percent in the format: AER (Precision/Recall)
