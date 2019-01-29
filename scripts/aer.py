@@ -89,5 +89,5 @@ if __name__ == "__main__":
                 hypothesis[-1].add(alignment_tuple)
 
     precision, recall, aer = calculate_metrics(sure, possible, hypothesis)
-    print("{} ({}): {2:.1f}% ({0:.1f}%/{1:.1f}%) AER (Precision/Recall)".format(args.reference, args.hypothesis,
-        precision * 100.0, recall * 100.0, aer * 100.0))
+    print("{0} ({1}): {2:.1f}% ({3:.1f}%/{4:.1f}%) AER (Precision/Recall)".format(args.hypothesis, args.reference,
+        aer * 100.0, precision * 100.0, recall * 100.0))
