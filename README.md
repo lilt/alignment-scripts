@@ -10,7 +10,7 @@ Scripts to preprocess training and test data for alignment experiments and to ru
 # Dependencies
 * Python3
 * [MosesDecoder](https://github.com/moses-smt/mosesdecoder): Used during preprocessing
-* [Sentencepiece](https://github.com/google/sentencepiece): Used during preprocessing
+* [Sentencepiece](https://github.com/google/sentencepiece): Optional, used for subword splitting at the end of preprocessing
 * [Fastalign](https://github.com/clab/fast_align): Only used for Fastalign
 * [Mgiza](https://github.com/moses-smt/mgiza/): Only used for Mgiza
 
