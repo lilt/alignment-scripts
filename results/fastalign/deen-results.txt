@@ -1,0 +1,6 @@
+test.deen.grow-diagonal-final.talp (../test/deen.talp): 27.7% (80.6%/65.4%) AER (Precision/Recall)
+test.deen.grow-diagonal.talp (../test/deen.talp): 27.0% (84.5%/64.1%) AER (Precision/Recall)
+test.deen.intersection.talp (../test/deen.talp): 28.0% (87.1%/61.3%) AER (Precision/Recall)
+test.deen.reverse.talp (../test/deen.talp): 32.0% (69.7%/66.4%) AER (Precision/Recall)
+test.deen.talp (../test/deen.talp): 28.5% (71.3%/71.8%) AER (Precision/Recall)
+test.deen.union.talp (../test/deen.talp): 31.9% (61.4%/77.0%) AER (Precision/Recall)
