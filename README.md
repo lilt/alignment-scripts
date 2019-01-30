@@ -41,8 +41,8 @@ All results are in percent in the format: AER (Precision/Recall)
 ## English to French ##
 | Method | EnFr | FrEn | Grow-Diag | GrowDiagFinal |
 | --- | ---- | --- | ---- | --------- |
-| Fastalign | 16.4 (80.0/90.1) | 15.9 (81.3/88.7) | 10.5 (90.8/87.8) | 12.1 (87.7/88.3) |
-| Mgiza | x.xx | x.xx | x.xx | x.xx |
+| Fastalign | 16.4% (80.0%/90.1%) | 15.9% (81.3%/88.7%) | 10.5% (90.8%/87.8%) | 12.1% (87.7%/88.3%) |
+| Mgiza | 8.0% (91.4%/92.9%) | 9.8% (91.6%/88.3%) | 5.9% (97.5%/89.7%) | 6.2% (95.5%/91.6%) |
 
 # Known Issues
 Tokenization of the Canadian Hansards seems to be wrong when accents are present in the English text:
