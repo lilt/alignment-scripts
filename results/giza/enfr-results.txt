@@ -1,0 +1,6 @@
+test.enfr.grow-diagonal-final.talp (../test/enfr.talp): 6.2% (95.5%/91.6%) AER (Precision/Recall)
+test.enfr.grow-diagonal.talp (../test/enfr.talp): 5.9% (97.5%/89.7%) AER (Precision/Recall)
+test.enfr.intersection.talp (../test/enfr.talp): 7.6% (98.4%/85.6%) AER (Precision/Recall)
+test.enfr.reverse.talp (../test/enfr.talp): 9.8% (91.6%/88.3%) AER (Precision/Recall)
+test.enfr.talp (../test/enfr.talp): 8.0% (91.4%/92.9%) AER (Precision/Recall)
+test.enfr.union.talp (../test/enfr.talp): 9.9% (87.1%/95.5%) AER (Precision/Recall)
