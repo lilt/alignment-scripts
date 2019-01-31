@@ -21,13 +21,12 @@ Scripts to preprocess training and test data for alignment experiments and to ru
 
 
 ## Results
-All results are in percent in the format: AER (Precision/Recall)
+All results are in percent in the format: AlignmentErrorRate (Precision/Recall)
 
 ### German to English ###
 | Method | DeEn | EnDe | Grow-Diag | Grow-Diag-Final |
 | --- | ---- | --- | ---- | --------- |
-| 
-| 28.4% (71.3%/71.8%) | 32.0% (69.7%/66.4%) | 27.0% (84.6%/64.1%) | 27.7% (80.7%/65.5%) |
+| FastAlign | 28.4% (71.3%/71.8%) | 32.0% (69.7%/66.4%) | 27.0% (84.6%/64.1%) | 27.7% (80.7%/65.5%) |
 | Mgiza | 21.0% (86.2%/72.8%) | 23.1% (86.6%/69.0%) | 21.4% (94.3%/67.2%) | 20.6% (91.3%/70.2%) |
 
 ### Romanian to English ###
