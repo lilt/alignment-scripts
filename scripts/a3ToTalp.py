@@ -28,7 +28,7 @@ def get_talp_string(line):
         except:
             print(line)
             print(tgt_al_group.group())
-            exit()
+            exit(1)
         for tgt_pos in tgt_pos_set:
             # make it 0 based instead of 1 based
             talp_string = "{}-{}".format(src_pos - 1, tgt_pos - 1)

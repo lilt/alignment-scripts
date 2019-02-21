@@ -7,7 +7,7 @@ SCRIPT_DIR=${0%/combine.sh}
 # check parameter count and write usage instruction
 if (( $# != 3 )); then
   echo "Usage: $0 alignment reverse_alignment reference_path"
-  exit
+  exit 1
 fi
 
 reference_path=$3
