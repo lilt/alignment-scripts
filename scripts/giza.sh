@@ -7,18 +7,18 @@ SCRIPT_DIR=${0%/giza.sh}
 # check if MGIZA_DIR is set and installed
 if [ -z ${MGIZA_DIR} ]; then
   echo "Set the variable MGIZA_DIR"
-  exit
+  exit 1
 fi
 
 if [ ! -f ${MGIZA_DIR}/mgizapp/bin/mgiza ]; then
   echo "Install mgiza, file ${MGIZA_DIR}/mgizapp/bin/mgiza not found"
-  exit
+  exit 1
 fi
 
 # check parameter count and write usage instruction
 if (( $# != 3 )); then
   echo "Usage: $0 source_file_path target_file_path ln_pair"
-  exit
+  exit 1
 fi
 
 source_path=`realpath $1`

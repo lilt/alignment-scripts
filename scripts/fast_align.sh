@@ -5,18 +5,18 @@ set -e
 # check if MGIZA_DIR is set and installed
 if [ -z ${FASTALIGN_DIR} ]; then
   echo "Set the variable FASTALIGN_DIR"
-  exit
+  exit 1
 fi
 
 if [ ! -f ${FASTALIGN_DIR}/build/fast_align ]; then
   echo "Install fastalign, file ${FASTALIGN_DIR}/build/fast_align not found"
-  exit
+  exit 1
 fi
 
 # check parameter count and write usage instruction
 if (( $# != 3 )); then
   echo "Usage: $0 source_file_path target_file_path direction"
-  exit
+  exit 1
 fi
 
 source_path=$1
