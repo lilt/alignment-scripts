@@ -4,7 +4,7 @@ import argparse
 
 
 def parse_args():
-    parser = argparse.ArgumentParser("Calculates Alignment Error Rate")
+    parser = argparse.ArgumentParser("Calculates Alignment Error Rate, output format: AER (Precision, Recall, Alginment-Links-Hypothesis)")
     parser.add_argument("reference", help="path of reference alignment, e.g. '10-9 11p42'")
     parser.add_argument("hypothesis", help="path to hypothesis alignment")
 
@@ -89,5 +89,5 @@ if __name__ == "__main__":
                 hypothesis[-1].add(alignment_tuple)
 
     precision, recall, aer = calculate_metrics(sure, possible, hypothesis)
-    print("{0} ({1}): {2:.1f}% ({3:.1f}%/{4:.1f}%) AER (Precision/Recall)".format(args.hypothesis, args.reference,
-        aer * 100.0, precision * 100.0, recall * 100.0))
+    print("{0}: {1:.1f}% ({2:.1f}%/{3:.1f}%/{4})".format(args.hypothesis,
+        aer * 100.0, precision * 100.0, recall * 100.0, sum([len(x) for x in hypothesis])))
