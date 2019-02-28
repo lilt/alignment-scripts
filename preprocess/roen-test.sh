@@ -6,9 +6,11 @@ prefix="roen"
 DIR_NAME="Romanian-English"
 
 if [ ! -d $DIR_NAME ]; then
-  wget http://web.eecs.umich.edu/\~mihalcea/wpt/data/Romanian-English.test.tar.gz
-  tar -xvzf Romanian-English.test.tar.gz
-  rm Romanian-English.test.tar.gz
+  for dataset in "test" "trial"; do
+    wget http://web.eecs.umich.edu/\~mihalcea/wpt/data/Romanian-English.${dataset}.tar.gz
+    tar -xvzf Romanian-English.${dataset}.tar.gz
+    rm Romanian-English.${dataset}.tar.gz
+  done
 fi
 
 # Bitext
@@ -20,10 +22,14 @@ for suffix in "e" "r"; do
   done
   cat $files > "test.${suffix}"
 done
+
 cat test.r | sed -e "s/^<s[^>]*> //g" -e "s|</s>$||g" > ${prefix}.src
 cat test.e | sed -e "s/^<s[^>]*> //g" -e "s|</s>$||g" > ${prefix}.tgt
 rm test.e test.r
+cat ${DIR_NAME}/trial/trial.r | sed -e "s/^<s[^>]*> //g" -e "s|</s>$||g" > ${prefix}.trial.src
+cat ${DIR_NAME}/trial/trial.e | sed -e "s/^<s[^>]*> //g" -e "s|</s>$||g" > ${prefix}.trial.tgt
 
 # Alignments
 ../scripts/toTalp.py < ${DIR_NAME}/answers/test.wa.nonullalign > ${prefix}.talp
+../scripts/toTalp.py < ${DIR_NAME}/trial/trial.wa > ${prefix}.trial.talp
 

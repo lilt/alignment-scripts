@@ -28,7 +28,9 @@ for ln_pair in "roen" "enfr" "deen"; do
                 --input                    train/${ln_pair}.lc.plustest.${suffix}
       spm_encode --model train/bpe.${ln_pair}.${suffix}.model < train/${ln_pair}.lc.${suffix} > train/${ln_pair}.lc.${suffix}.bpe
       spm_encode --model train/bpe.${ln_pair}.${suffix}.model < train/${ln_pair}.lc.plustest.${suffix} > train/${ln_pair}.lc.plustest.${suffix}.bpe
-      spm_encode --model train/bpe.${ln_pair}.${suffix}.model < test/${ln_pair}.lc.${suffix} > test/${ln_pair}.lc.${suffix}.bpe
+      for dataset in "" ".trial"; do
+        spm_encode --model train/bpe.${ln_pair}.${suffix}.model < test/${ln_pair}${dataset}.lc.${suffix} > test/${ln_pair}${dataset}.lc.${suffix}.bpe
+      done
     fi
 
   done
