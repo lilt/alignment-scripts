@@ -2,6 +2,8 @@
 
 set -ex
 
+export LC_ALL=en_US.UTF-8
+
 PREPROCESS_DIR=${0%/run.sh}
 
 ${PREPROCESS_DIR}/test.sh
@@ -26,13 +28,15 @@ for ln_pair in "roen" "enfr" "deen"; do
                 --vocab_size               10000 \
                 --character_coverage       1.0 \
                 --input                    train/${ln_pair}.lc.plustest.${suffix}
-      spm_encode --model train/bpe.${ln_pair}.${suffix}.model < train/${ln_pair}.lc.${suffix} > train/${ln_pair}.lc.${suffix}.bpe
-      spm_encode --model train/bpe.${ln_pair}.${suffix}.model < train/${ln_pair}.lc.plustest.${suffix} > train/${ln_pair}.lc.plustest.${suffix}.bpe
+      spm_encode --model train/bpe.${ln_pair}.${suffix}.model < train/${ln_pair}.lc.${suffix} > train/${ln_pair}.lc.${suffix}.bpe &
+      spm_encode --model train/bpe.${ln_pair}.${suffix}.model < train/${ln_pair}.lc.plustest.${suffix} > train/${ln_pair}.lc.plustest.${suffix}.bpe &
       for dataset in "" ".trial"; do
-        spm_encode --model train/bpe.${ln_pair}.${suffix}.model < test/${ln_pair}${dataset}.lc.${suffix} > test/${ln_pair}${dataset}.lc.${suffix}.bpe
+        spm_encode --model train/bpe.${ln_pair}.${suffix}.model < test/${ln_pair}${dataset}.lc.${suffix} > test/${ln_pair}${dataset}.lc.${suffix}.bpe &
       done
     fi
 
   done
 done
+
+wait
  
