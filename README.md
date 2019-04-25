@@ -13,6 +13,7 @@ Scripts to preprocess training and test data for alignment experiments and to ru
 ## Usage Instructions
 * Install all necessary dependencies
 * Export install locations for dependencies: `export {MOSES_DIR,FASTALIGN_DIR,MGIZA_DIR}=/foo/bar`
+* Make sure you set a reasonable default locale, e.g.: `export LC_ALL=en_US.UTF-8`
 * Create folder for your test data: `mkdir -p test`
 * Download [Test Data for German-English](https://www-i6.informatik.rwth-aachen.de/goldAlignment/) and move it into the folder `test`
 * Run preprocessing: `./preprocess/run.sh`
