@@ -3,6 +3,8 @@ train/
 test/
 fastalign/
 giza/
+configs/
+o/
 
 .DS_Store
 
