@@ -35,15 +35,14 @@ def calculate_internal_jumps(alignments):
     >>> calculate_internal_jumps([set()])
     0
     """
-    jumps = 0
-    for al in alignments:
-        for src in sorted(al)[1:]:
-            if src+1 in al or src-1 in al:
-                pass
-            else:
-                jumps += 1 
-                break
-    return jumps
+    def contiguous(s):
+        if len(s) <= 1:
+            return True
+        else:
+            elements_in_contiguous_set = max(s) - min(s) + 1
+            return elements_in_contiguous_set == len(s)            
+
+    return [contiguous(s) for s in alignments].count(False)
 
 def calculate_external_jumps(alignments):
     """ Count number of times the (smallest) source index aligned to target word x is not adjacent or identical to any source word index aligned to the next target word index x+1
@@ -105,9 +104,14 @@ def calculate_metrics(array_sure, array_possible, array_hypothesis, f_alpha, sou
         internal_jumps += calculate_internal_jumps(al)
         external_jumps += calculate_external_jumps(al)
 
-        for src_pos, tgt_pos in A:
-            if source and target and (src_pos, tgt_pos) not in P:
-                errors[source[src_pos], target[tgt_pos]] += 1
+        if source and target:
+            for src_pos, tgt_pos in A:
+                if not src_pos < len(source):
+                    print(source, len(source), src_pos)
+                if not tgt_pos < len(target):
+                    print(target, len(target), tgt_pos)
+                if (src_pos, tgt_pos) not in P:
+                    errors[source[src_pos], target[tgt_pos]] += 1
 
     precision = sum_a_intersect_p / sum_a
     recall = sum_a_intersect_s / sum_s
@@ -180,12 +184,12 @@ if __name__ == "__main__":
     print("{0}: {1:.1f}% ({2:.1f}%/{3:.1f}%/{4})".format(args.hypothesis,
         aer * 100.0, precision * 100.0, recall * 100.0, sum([len(x) for x in hypothesis])))
     if args.fAlpha >= 0.0:
-        print(f"F-Measure: {f_measure:.3f}")
+        print("F-Measure: {:.3f}".format(f_measure))
     
 
     if args.source:
         assert args.target and args.most_common_errors > 0, "To output the most common errors, define a source and target file and the number of errors to output"
         print(errors.most_common(args.most_common_errors))
-        print(f"Internal Jumps: {internal_jumps}, External Jumps: {external_jumps}")
+        print("Internal Jumps: {}, External Jumps: {}".format(f_measure, external_jumps))
         print("Source Coverage: {:.1f}%, Target Coverage: {:.1f}%".format(source_coverage * 100.0, target_coverage * 100.0))
  
