@@ -5,6 +5,9 @@ import itertools
 from collections import Counter
 
 
+PUNCTUATION_MARKS = {".", ",", "!", "?", ";", ":", "(", ")"}
+
+
 def parse_args():
     parser = argparse.ArgumentParser("Calculates Alignment Error Rate, output format: AER (Precision, Recall, Alginment-Links-Hypothesis)")
     parser.add_argument("reference", help="path of reference alignment, e.g. '10-9 11p42'")
@@ -21,13 +24,15 @@ def parse_args():
 
     parser.add_argument("--source", default="", help="the source sentence, used for an error analysis")
     parser.add_argument("--target", default="", help="the target sentence, used for an error analysis")
+    parser.add_argument("--cleanPunctuation", action="store_true", help="Removes alignments including punctuation marks, that are not aligned to the same punctuation mark (e.g. ','-'that')")
     parser.add_argument("--most_common_errors", default=10, type=int)
 
     return parser.parse_args()
 
+
 def calculate_internal_jumps(alignments):
     """ Count number of times the set of source word indices aligned to a target word index are not adjacent
-        Each non adjacent set of source word indices counts only once 
+        Each non adjacent set of source word indices counts only once
     >>> calculate_internal_jumps([{1,2,4}, {42}])
     1
     >>> calculate_internal_jumps([{1,2,3,4}])
@@ -40,9 +45,10 @@ def calculate_internal_jumps(alignments):
             return True
         else:
             elements_in_contiguous_set = max(s) - min(s) + 1
-            return elements_in_contiguous_set == len(s)            
+            return elements_in_contiguous_set == len(s)
 
     return [contiguous(s) for s in alignments].count(False)
+
 
 def calculate_external_jumps(alignments):
     """ Count number of times the (smallest) source index aligned to target word x is not adjacent or identical to any source word index aligned to the next target word index x+1
@@ -62,17 +68,19 @@ def calculate_external_jumps(alignments):
                 jumps += 1
     return jumps
 
+
 def to_list(A):
     """ converts set of src-tgt alignments to a list containing a set of aligned source word for each target position
     >>> to_list({(2,1)})
     [set(), {2}]
     """
-    lst = [set() for _ in range(max({y for x,y in A}) + 1)]
+    lst = [set() for _ in range(max({y for x, y in A}) + 1)]
     for x, y in A:
         lst[y].add(x)
     return lst
 
-def calculate_metrics(array_sure, array_possible, array_hypothesis, f_alpha, source_sentences=(), target_sentences=()):
+
+def calculate_metrics(array_sure, array_possible, array_hypothesis, f_alpha, source_sentences=(), target_sentences=(), clean_punctuation=False):
     """ Calculates precision, recall and alignment error rate as described in "A Systematic Comparison of Various
         Statistical Alignment Models" (https://www.aclweb.org/anthology/J/J03/J03-1002.pdf) in chapter 5
 
@@ -94,12 +102,14 @@ def calculate_metrics(array_sure, array_possible, array_hypothesis, f_alpha, sou
     internal_jumps, external_jumps = 0, 0
 
     for S, P, A, source, target in itertools.zip_longest(array_sure, array_possible, array_hypothesis, source_sentences, target_sentences):
+        if clean_punctuation:
+            A = {(s, t) for (s, t) in A if not ((source[s] in PUNCTUATION_MARKS or target[t] in PUNCTUATION_MARKS) and source[s] != target[t])}
         sum_a += len(A)
         sum_s += len(S)
         sum_a_intersect_p += len(A.intersection(P))
         sum_a_intersect_s += len(A.intersection(S))
-        aligned_source_words += len({x for x,y in A})
-        aligned_target_words += len({y for x,y in A})
+        aligned_source_words += len({x for x, y in A})
+        aligned_target_words += len({y for x, y in A})
         al = to_list(A)
         internal_jumps += calculate_internal_jumps(al)
         external_jumps += calculate_external_jumps(al)
@@ -116,17 +126,17 @@ def calculate_metrics(array_sure, array_possible, array_hypothesis, f_alpha, sou
     precision = sum_a_intersect_p / sum_a
     recall = sum_a_intersect_s / sum_s
     aer = 1.0 - ((sum_a_intersect_p + sum_a_intersect_s) / (sum_a + sum_s))
-    
+
     if f_alpha < 0.0:
         f_measure = 0.0
     else:
         f_divident = f_alpha / precision
         f_divident += (1.0 - f_alpha) / recall
         f_measure = 1.0 / f_divident
-    
+
     source_coverage = aligned_source_words / sum_source_words
     target_coverage = aligned_target_words / sum_target_words
-    
+
     return precision, recall, aer, f_measure, errors, source_coverage, target_coverage, internal_jumps, external_jumps
 
 
@@ -145,17 +155,22 @@ def parse_single_alignment(string, reverse=False, one_indexed=False):
 
     return a, b
 
+
 def read_text(path):
     if path == "":
         return []
     with open(path, "r", encoding="utf-8") as f:
         return [l.split() for l in f]
 
+
 if __name__ == "__main__":
     args = parse_args()
     sure, possible, hypothesis = [], [], []
 
     source, target = map(read_text, [args.source, args.target])
+
+    assert len(source) == len(target), "Length of source and target does not match"
+    assert (not args.cleanPunctuation) or len(source) > 0, "To clean punctuation alignments, specify a source and target text file"
 
     with open(args.reference, 'r') as f:
         for line in f:
@@ -180,16 +195,14 @@ if __name__ == "__main__":
                 alignment_tuple = parse_single_alignment(alignment_string, args.reverseHyp, args.oneHyp)
                 hypothesis[-1].add(alignment_tuple)
 
-    precision, recall, aer, f_measure, errors, source_coverage, target_coverage, internal_jumps, external_jumps = calculate_metrics(sure, possible, hypothesis, args.fAlpha, source, target)
+    precision, recall, aer, f_measure, errors, source_coverage, target_coverage, internal_jumps, external_jumps = calculate_metrics(sure, possible, hypothesis, args.fAlpha, source, target, args.cleanPunctuation)
     print("{0}: {1:.1f}% ({2:.1f}%/{3:.1f}%/{4})".format(args.hypothesis,
-        aer * 100.0, precision * 100.0, recall * 100.0, sum([len(x) for x in hypothesis])))
+                aer * 100.0, precision * 100.0, recall * 100.0, sum([len(x) for x in hypothesis])))
     if args.fAlpha >= 0.0:
         print("F-Measure: {:.3f}".format(f_measure))
-    
 
     if args.source:
         assert args.target and args.most_common_errors > 0, "To output the most common errors, define a source and target file and the number of errors to output"
         print(errors.most_common(args.most_common_errors))
         print("Internal Jumps: {}, External Jumps: {}".format(f_measure, external_jumps))
         print("Source Coverage: {:.1f}%, Target Coverage: {:.1f}%".format(source_coverage * 100.0, target_coverage * 100.0))
- 
