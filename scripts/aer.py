@@ -204,5 +204,5 @@ if __name__ == "__main__":
     if args.source:
         assert args.target and args.most_common_errors > 0, "To output the most common errors, define a source and target file and the number of errors to output"
         print(errors.most_common(args.most_common_errors))
-        print("Internal Jumps: {}, External Jumps: {}".format(f_measure, external_jumps))
+        print("Internal Jumps: {}, External Jumps: {}".format(internal_jumps, external_jumps))
         print("Source Coverage: {:.1f}%, Target Coverage: {:.1f}%".format(source_coverage * 100.0, target_coverage * 100.0))
