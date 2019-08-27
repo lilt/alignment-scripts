@@ -34,6 +34,6 @@ sed -e '/^ |||/d' -e '/||| $/d' ${source_name}_${target_name} > ${source_name}_$
 sed -e '/^ |||/d' -e '/||| $/d' ${target_name}_${source_name} > ${target_name}_${source_name}.clean
 
 # align in both directions
-${FASTALIGN_DIR}/build/fast_align -i ${source_name}_${target_name}.clean -d -o -v > ${direction}.talp
-${FASTALIGN_DIR}/build/fast_align -i ${target_name}_${source_name}.clean -d -o -v > ${direction}.reverse.talp
+${FASTALIGN_DIR}/build/fast_align -i ${source_name}_${target_name}.clean -p ${direction}.model -d -o -v > ${direction}.talp 2> ${direction}.error
+${FASTALIGN_DIR}/build/fast_align -i ${target_name}_${source_name}.clean -p ${direction}.reverse.model -d -o -v > ${direction}.reverse.talp 2> ${direction}.reverse.error
 
