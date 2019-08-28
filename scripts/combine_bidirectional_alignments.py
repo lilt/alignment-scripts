@@ -14,6 +14,7 @@ def parse_args():
     parser.add_argument("alignment_reverse", help="Path to alignment in reverse direction in talp format")
     parser.add_argument("--method", default="grow-diagonal-final",
                         help="Method to combine alignments ({})".format(", ".join(METHODS)))
+    parser.add_argument("--dont_reverse", action='store_true', help="Do not reverse alignment_reverse file (useful when using fastalign's -r option)")
 
     return parser.parse_args()
 
@@ -105,7 +106,7 @@ if __name__ == "__main__":
         with open(ARGS.alignment_reverse, 'r') as f2:
             for l1, l2 in zip(f1, f2):
                 al1 = parse_line(l1)
-                al2 = parse_line(l2, reverse=True)
+                al2 = parse_line(l2, reverse=(not ARGS.dont_reverse))
 
                 al_combined = None
                 if ARGS.method == "grow-diagonal-final":
