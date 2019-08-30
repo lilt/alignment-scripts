@@ -5,7 +5,7 @@ set -ex
 bpe=""
 if (( $# == 1 )); then
   if [ "$1" != "bpe" ]; then
-    echo "Use BPE as the first argument if you want to run giza using BPE tokenization"
+    echo "Use BPE as the first argument if you want to run fastalign using BPE tokenization"
     exit 1
   fi
   bpe=".bpe"
