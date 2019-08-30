@@ -61,8 +61,13 @@ echo "sourcevocabularyclasses ../${target_name}.class" >> config.txt
 echo "targetvocabularyclasses ../${source_name}.class" >> config.txt
 cd ..
 
-for name in "Backward" "Forward"; do
+for name in "Forward" "Backward"; do
   cd $name
+    # make sure to dump everything [onlineMgiza++](https://307d7cc8-a-db0463cf-s-sites.googlegroups.com/a/fbk.eu/mt4cat/file-cabinet/onlinemgiza-1.0.5-manual.pdf) neeeds
+    echo "nodumps 0" >> config.txt
+    echo "onlyaldumps 1" >> config.txt
+    echo "hmmdumpfrequency 5" >> config.txt
+    # Run Giza
     ${MGIZA_DIR}/mgizapp/bin/mgiza config.txt
     cat *A3.final.part* > allA3.txt
   cd ..
