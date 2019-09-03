@@ -3,6 +3,7 @@ train/
 test/
 fastalign/
 fastalign-forcealign/
+giza-forcealign/
 giza/
 configs/
 o/
