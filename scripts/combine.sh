@@ -29,11 +29,11 @@ for method in "grow-diagonal-final" "grow-diagonal" "intersection" "union"; do
   ${SCRIPT_DIR}/combine_bidirectional_alignments.py test.${alignment_name}  test.${alignment_reverse_name} --method $method $4 > test.${alignment_prefix}.${method}.talp
 done
 
-for file_path in test.${alignment_prefix}*.talp ${alignment_reverse_path}; do
+for file_path in test.${alignment_prefix}*.talp; do
   reverseRef=""
   if [[ ${file_path} == *"reverse"* ]]; then
     reverseRef="--reverseRef"
   fi
-  ${SCRIPT_DIR}/aer.py ${reference_path} ${file_path} --oneRef $reverseRef
+  ${SCRIPT_DIR}/aer.py ${reference_path} ${file_path} --oneRef $reverseRef --fAlpha 0.5
 done
 
