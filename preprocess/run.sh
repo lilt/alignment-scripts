@@ -30,10 +30,13 @@ for ln_pair in "roen" "enfr" "deen"; do
               --vocab_size               40000 \
               --character_coverage       1.0 \
               --input                    train/${ln_pair}.lc.plustest.joint
-    spm_encode --model train/bpe.${ln_pair}.model < train/${ln_pair}.lc.${suffix} > train/${ln_pair}.lc.${suffix}.bpe &
-    spm_encode --model train/bpe.${ln_pair}.model < train/${ln_pair}.lc.plustest.${suffix} > train/${ln_pair}.lc.plustest.${suffix}.bpe &
-    for dataset in "" ".trial" ".2repeat"; do
-      spm_encode --model train/bpe.${ln_pair}.model < test/${ln_pair}${dataset}.lc.${suffix} > test/${ln_pair}${dataset}.lc.${suffix}.bpe &
+
+    for suffix in "src" "tgt"; do
+      spm_encode --model train/bpe.${ln_pair}.model < train/${ln_pair}.lc.${suffix} > train/${ln_pair}.lc.${suffix}.bpe &
+      spm_encode --model train/bpe.${ln_pair}.model < train/${ln_pair}.lc.plustest.${suffix} > train/${ln_pair}.lc.plustest.${suffix}.bpe &
+      for dataset in "" ".trial" ".2repeat"; do
+        spm_encode --model train/bpe.${ln_pair}.model < test/${ln_pair}${dataset}.lc.${suffix} > test/${ln_pair}${dataset}.lc.${suffix}.bpe &
+      done
     done
   fi
 
