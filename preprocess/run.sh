@@ -29,6 +29,7 @@ for ln_pair in "roen" "enfr" "deen"; do
               --normalization_rule_name  identity \
               --vocab_size               40000 \
               --character_coverage       1.0 \
+              --add_dummy_prefix         1 \
               --input                    train/${ln_pair}.lc.plustest.joint
 
     for suffix in "src" "tgt"; do
