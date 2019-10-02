@@ -74,7 +74,8 @@ def to_list(A):
     >>> to_list({(2,1)})
     [set(), {2}]
     """
-    lst = [set() for _ in range(max({y for x, y in A}) + 1)]
+    max_tgt_idx = max({y for x, y in A}) if len(A) > 0 else 0
+    lst = [set() for _ in range(max_tgt_idx+1)]
     for x, y in A:
         lst[y].add(x)
     return lst
