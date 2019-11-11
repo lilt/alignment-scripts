@@ -14,8 +14,7 @@ def convert(src_file, tgt_file):
     examples = zip(get_mapping(src_file), get_mapping(tgt_file), fileinput.input(files=["-"]))
     for src_map, tgt_map, line in examples:
         subword_alignments = {(int(a), int(b)) for a, b in (x.split("-") for x in line.split())}
-        # word_alignments = {"{}-{}".format(src_map[a], tgt_map[b]) for a, b in subword_alignments}
-        # As we set --add_dummy_prefix 1, we need to delete 1 to make sure we start from 0 rather than 1. 
+        # Subtract 1 to ensure zero indexed alignments (Using --add_dummy_prefix 1 for spm temporarly changed that)
         word_alignments = {"{}-{}".format(src_map[a] - 1, tgt_map[b] - 1) for a, b in subword_alignments}
         yield word_alignments
 
