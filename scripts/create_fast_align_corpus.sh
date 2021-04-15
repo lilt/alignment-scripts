@@ -6,6 +6,6 @@ if (( $# != 3 )); then
   exit 1
 fi
 
-# paste with ~ as delimiter | remove empty source or target lines
-paste -d "~" $1 $2 | sed 's/~/ ||| /g' | sed -e '/^ |||/d' -e '/||| $/d' > ${3}
+# paste with tab as delimiter | remove empty source or target lines
+paste $1 $2 | sed -E 's/\t/ |||' | sed -e '/^ |||/d' -e '/||| $/d' > ${3}
 
