@@ -25,7 +25,6 @@ for ln_pair in "roen" "enfr" "deen"; do
               --split_by_unicode_script  1 \
               --split_by_whitespace      1 \
               --remove_extra_whitespaces 1 \
-              --add_dummy_prefix         0 \
               --normalization_rule_name  identity \
               --vocab_size               40000 \
               --character_coverage       1.0 \

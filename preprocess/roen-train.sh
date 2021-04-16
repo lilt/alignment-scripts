@@ -48,6 +48,7 @@ ${MOSES_DIR}/scripts/tokenizer/tokenizer.perl -l en -no-escape < ${EUROPARL_DIR_
 
 # merge
 for direction in "src" "tgt"; do
-  cat ${DIR_NAME}/${prefix}.${direction} ${EUROPARL_DIR_NAME}/${prefix}.${direction} > ${prefix}.${direction}
+  # Additionally normalize non breaking spaces to normal spaces (https://github.com/lilt/alignment-scripts/issues/7)
+  cat ${DIR_NAME}/${prefix}.${direction} ${EUROPARL_DIR_NAME}/${prefix}.${direction} | sed 's/\xC2\xA0/ /g' > ${prefix}.${direction}
 done
 

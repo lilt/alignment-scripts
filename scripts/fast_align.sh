@@ -26,8 +26,8 @@ target_name=${2##*/}
 direction=$3
 
 # create format used for fastalign
-paste -d "~" ${source_path} ${target_path} | sed 's/~/ ||| /g' > ${source_name}_${target_name}
-paste -d "~" ${target_path} ${source_path} | sed 's/~/ ||| /g' > ${target_name}_${source_name}
+paste ${source_path} ${target_path} | sed -E 's/\t/ ||| /g' > ${source_name}_${target_name}
+paste ${target_path} ${source_path} | sed -E 's/\t/ ||| /g' > ${target_name}_${source_name}
 
 # remove lines which have an empty source or target
 sed -e '/^ |||/d' -e '/||| $/d' ${source_name}_${target_name} > ${source_name}_${target_name}.clean
