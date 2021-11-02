@@ -7,5 +7,5 @@ if (( $# != 3 )); then
 fi
 
 # paste with tab as delimiter | remove empty source or target lines
-paste $1 $2 | sed -E 's/\t/ |||' | sed -e '/^ |||/d' -e '/||| $/d' > ${3}
+paste $1 $2 | sed -E 's/\t/ ||| /g' | sed -e '/^ |||/d' -e '/||| $/d' > ${3}
 
